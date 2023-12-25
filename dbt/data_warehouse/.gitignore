@@ -7,4 +7,4 @@ dbt_modules/
 package-lock.yml
 logs/
 analysis/
-config/
+config/bq_service_account.json
