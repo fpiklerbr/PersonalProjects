@@ -1,0 +1,7 @@
+version: 2
+
+tests:
+  - name: ether_ledger_total_credits_and_debits_by_tenant
+    description: |
+      Checks that the sum of `ether_ledger_account_entries.account_entry_amount` for Credits is equal to the
+      sum of `ether_ledger_account_entries.account_entry_amount` for Debits for every event in the ledger

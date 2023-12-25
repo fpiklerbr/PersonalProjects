@@ -1,0 +1,7 @@
+version: 2
+
+tests:
+  - name: ether_ledger_total_balance_change_by_account
+    description: |
+      Checks that the sum of `ether_ledger_account_entries.account_balance_change` is equal to the value of
+      `account_final_balance` for every account in the ledger

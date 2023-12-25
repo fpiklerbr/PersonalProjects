@@ -1,0 +1,6 @@
+version: 2
+
+tests:
+  - name: ether_order_item_allocations_pick_data
+    description: |
+      Checks that the pick number associated with an order and line match what X3 returns. 

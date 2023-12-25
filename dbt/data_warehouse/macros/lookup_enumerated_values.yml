@@ -1,0 +1,28 @@
+version: 2
+
+macros:
+  - name: lookup_enumerated_values
+    description: |
+      This macro builds a CASE statement that maps a source-data enum column to the values represented by its enumeration.
+      It's called by the source-model macro when source-table columns are documented with the `meta.enumeration` property,
+      which should store a dictionary suitable for the `enumerated_values` argument below. In those cases, the documented
+      column's `type` property will be passed to the `output_type` argument and its `meta.enumeration_type` (if present)
+      will be passed to `input_type`.
+    docs:
+      show: true
+    arguments:
+      - name: enumerated_column
+        type: column_name
+        description: "Column (or other SQL expression) that stores the enum"
+      - name: enumerated_values
+        type: dict
+        description: |
+          A dictionary that maps the enumerated values -- keys are the raw enum values (typically integers), values are
+          what they represent (typically strings).
+      - name: output_type
+        type: data_type
+        description: "Optional, defaults to 'text'. Data type to which the values represented by the enum should be cast"
+      - name: input_type
+        type: data_type
+        description: |
+          Optional. Data type, if any, to which `column_name` should be cast before it is compared to `enumerated_values`

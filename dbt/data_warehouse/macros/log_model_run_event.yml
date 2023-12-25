@@ -1,0 +1,18 @@
+version: 2
+
+macros:
+  - name: log_model_run_event
+    description: |
+      This macro inserts a row into the `meta_dbt.log_model_run_events` table on PostgreSQL only. It is triggered before
+      and after every model-run via pre- and post-hooks. It writes the `table` and `schema` from dbt's internal `this`
+      function into the log table's `model_schema` and `model_name` columns, the `event_type` argument into the
+      `event_type` column, the PG's native `clock_timestamp()` (the actual current time, independent of transaction
+      control) into the `created_at` column, and dbt's internal `invocation_id` function into the `dbt_invocation_id`
+      column. It also executes COMMIT and BEGIN statements in the pre-hook to separate the log entry from the main
+      model-run so that failed (and rolled back) model-runs are still logged. It has no effect on BigQuery.
+    docs:
+      show: true
+    arguments:
+      - name: event_type
+        type: text
+        description: "'start' or 'end', depending on whether the macro is called by a pre- or post-hook"

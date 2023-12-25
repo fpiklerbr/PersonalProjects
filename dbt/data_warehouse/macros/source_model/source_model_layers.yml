@@ -1,0 +1,17 @@
+version: 2
+
+macros:
+  - name: source_model_layers
+    description: |
+      This macro calls `source_model_columns()` to get the documented and undocumented columns
+      or a source table, and sorts them into a list of separate layers to be converted into
+      subqueries or CTEs by `source_model_sql()`
+    docs:
+      show: true
+    arguments:
+      - name: source_name
+        type: dbt identifier
+        description: Required. The name of a dbt-documented source. Same as the first argument of the standard dbt `source()` macro.
+      - name: source_table
+        type: dbt identifier
+        description: Required. The name of a table for that dbt-documented source. Same as the second argument of the standard dbt `source()` macro.

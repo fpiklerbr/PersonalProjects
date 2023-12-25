@@ -1,0 +1,19 @@
+version: 2
+
+macros:
+  - name: source_model_filter
+    description: |
+      This macro is called by `source_model_layers()` to construct WHERE, ORDER BY, and LIMIT clauses
+      for the first layer of a source model. It calls `source_table_docs()` and applies any
+      `meta.exclusions` and `meta.incremental_logic` properties documented for the source table,
+      calls `source_model_columns()` to apply transformations to columns used in incremental
+      logic, and applies the `base_limit` variable to limit row counts in non-production environments.
+    docs:
+      show: true
+    arguments:
+      - name: source_name
+        type: dbt identifier
+        description: Required. The name of a dbt-documented source. Same as the first argument of the standard dbt `source()` macro.
+      - name: source_table
+        type: dbt identifier
+        description: Required. The name of a table for that dbt-documented source. Same as the second argument of the standard dbt `source()` macro.

@@ -1,0 +1,390 @@
+name: stadiumgoods_refined
+profile: 'default'
+version: 0.0
+
+source-paths: ["models"]
+analysis-paths: ["analysis"]
+test-paths: ["tests"]
+data-paths: ["seeds"]
+macro-paths: ["macros"]
+
+config-version: 2
+
+vars:
+  apply_dev_limit: True
+  base_limit: "{{ -1 if target.name == 'prod' else 1000 }}"
+  invoking_job_name: "{{ 'BQ test' if target.type == 'bigquery' else 'Ad hoc' }}"
+  invoking_job_id: '{{ run_started_at.strftime("%Y%m%d%H%M%S") }}'
+  audit_startdate: '2020-07-25'
+  service_account: "{{ 'dbt-ff-sg-data-live@ff-sg-data-live.iam.gserviceaccount.com' if target.type == 'bigquery' }}"
+  project_name: "{{ 'ff-sg-data-live' if target.type == 'bigquery' }}"
+  build_from_snapshots: True
+  raw_db: "ff-stadiumgoods-raw-live"
+
+clean-targets:
+  - "target"
+  - "dbt_modules"
+  - "logs"
+
+on-run-start:
+  - "{{ log_invocation_start() }}"
+  - "{{ create_udfs() }}"
+
+on-run-end:
+  - "{{ grant_schema_permissions() }}"
+  - "{{ log_invocation_end() }}"
+
+models:
+  stadiumgoods_refined:
+    pre-hook:
+      - "{{ log_model_run_event('start') }}"
+    post-hook:
+      - "{{ grant_model_permissions() }}"
+      - "{{ log_model_run_event('end') }}"
+    toolio:
+      +schema: "toolio"
+      +materialized: table
+      +unlogged: True
+    ff_finance:
+      +schema: "{{ None if (target.type == 'postgres' and target.name == 'prod') or target.database == 'ff-stadium-goods' else 'ff_finance' }}"
+      +materialized: table
+      +unlogged: True
+    reporting:
+      +schema: "{{ None if (target.type == 'postgres' and target.name == 'prod') or target.database == 'ff-stadium-goods' else 'reporting' }}"
+      +materialized: table
+      +unlogged: True
+    staging:
+      +schema: "{{ None if target.type == 'postgres' and target.name == 'prod' else 'staging' }}"
+      +materialized: "{{ 'view' if target.type == 'bigquery' else 'table' }}"
+      +unlogged: True
+      audit:
+        +enabled: "{{ False if target.type == 'bigquery' else True }}"
+      farfetch:
+        +materialized: table
+        +unlogged: True
+      meta_etl:
+        +enabled: "{{ False if target.type == 'bigquery' else True }}"
+      meta_postgres:
+        +enabled: "{{ False if target.type == 'bigquery' else True }}"
+      psp_transactions:
+        +materialized: table
+      seller_portal:
+        +materialized: table
+      stadium:
+        +materialized: table
+        +unlogged: True
+      x3:
+        +tags: ['x3_legacy']
+    sources:
+      +schema: "{{ None if target.type == 'postgres' and target.name == 'prod' else 'sources' }}"
+      +materialized: "{{ 'view' if target.type == 'bigquery' else 'table' }}"
+      +unlogged: True
+      farfetch:
+        +materialized: table
+        +unlogged: True
+      meta_postgres:
+        +enabled: "{{ False if target.type == 'bigquery' else True }}"
+      x3:
+        +tags: ['x3_legacy']
+
+seeds:
+  stadiumgoods_refined:
+    +quote_columns: False
+    +enabled: True
+    +schema: seeds
+    dummy_seed_for_types:
+      +column_types:
+        text_column: &text_type "{{ 'string' if target.type == 'bigquery' else 'text' }}"
+        float_column: &float_type "{{ 'float64' if target.type == 'bigquery' else 'float' }}"
+        int_column: &int_type "{{ 'int64' if target.type == 'bigquery' else 'int' }}"
+        date_column: &date_type date
+        boolean_column: &boolean_type boolean
+        bigint_column: &bigint_type "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
+        decimal_column: &decimal_type "{{ 'numeric' if target.type == 'bigquery' else 'decimal' }}"
+        timestamptz_column: &timestamptz_type "{{ 'timestamp' if target.type == 'bigquery' else 'timestamptz' }}"
+    calendars_dtc_promos:
+      +column_types:
+        promo_date: *date_type
+        promo_type: *text_type
+        discount_amount: *float_type
+        discount_calculation: *text_type
+        promo_note: *text_type
+    exceptions_cap_invalid_tracking_numbers:
+      +column_types:
+        tracking_number: *text_type
+    exceptions_x3_null_dates:
+      +column_types:
+        null_date: *date_type
+    exceptions_x3_orders_with_invalid_mag_order_ids:
+      +column_types:
+        x3_order_id: *text_type
+    calendars_nrf_retail:
+      +column_types:
+        date_id: *date_type
+        retail_year: *int_type
+        retail_week_of_year: *int_type
+        retail_week_of_year_restated: *int_type
+        retail_month_of_year: *int_type
+        retail_month_of_year_restated: *int_type
+        retail_season: *text_type
+        retail_season_restated: *text_type
+        retail_week_of_month: *int_type
+        retail_week_of_month_restated: *int_type
+        retail_holiday: *text_type
+        retail_day_of_week: *int_type
+    exceptions_excluded_source_files:
+      +column_types:
+        source_name: *text_type
+        source_table: *text_type
+        file_name: *text_type
+    exceptions_farfetch_bi_refunded_orders:
+      +column_types:
+        farfetch_order_id: *text_type
+    lookup_amazon_marketplace_tax_collection_effective_dates:
+      +column_types:
+        geography: *text_type
+        effective_date: *date_type
+        withholding_type: *text_type
+    lookup_bad_order_flags:
+      +column_types:
+        reporting_field: *text_type
+        source_field: *text_type
+        source_value: *text_type
+    lookup_cap_client_centers:
+      +column_types:
+        cap_client_center: *text_type
+        cap_location: *text_type
+        x3_warehouse: *text_type
+        ops_channel: *text_type
+        ops_finance_category: *text_type
+    lookup_channels:
+      +column_types:
+        order_channel: *text_type
+        channel: *text_type
+        channel_group: *text_type
+        gmv: *boolean_type
+        closes_line: *boolean_type
+        issues_line: *boolean_type
+        upcharge_percentage: *float_type
+        fee_percentage: *float_type
+        fee_flat: *float_type
+        upcharge_flat: *float_type
+        riskified_percentage: *float_type
+        agency_percentage: *float_type
+        channel_detail: *text_type
+        issue_date_delay: *text_type
+        business_unit: *text_type
+        channel_or_gateway: *text_type
+        sales_channel: *text_type
+        dispatch_on_order_date: *boolean_type
+        free_shipping_value: *float_type
+        use_external_duties: *boolean_type
+        use_external_item_price: *boolean_type
+        use_external_item_discount: *boolean_type
+        use_external_item_tax: *boolean_type
+        use_external_shipping_price: *boolean_type
+        use_external_shipping_discount: *boolean_type
+        use_external_shipping_tax: *boolean_type
+        return_if_refunded: *boolean_type
+        return_refund_threshold: *float_type
+        return_refund_deduction: *float_type
+        fee_includes_ship_cost: *boolean_type
+        fee_includes_duties: *boolean_type
+        receipt_date_is_dispatch_date: *boolean_type
+        include_orphan_transactions_in_financial_reporting: *boolean_type
+        return_if_refunded_cutoff_date: *date_type
+    lookup_channel_upcharges:
+      +column_types:
+        channel_or_gateway: *text_type
+        upcharge_flat: *decimal_type
+        upcharge_percentage: *decimal_type
+    lookup_mercaux_channels:
+      +column_types:
+        mercaux_store_name: *text_type
+        channel_or_gateway: *text_type
+    lookup_dropshippers:
+      +column_types:
+        dropshipper_id: *bigint_type
+        dropshipper_name: *text_type
+        supplier_acronym: *text_type
+        commission_rate: *float_type
+        serial_source: *text_type
+    lookup_email_addresses:
+      +column_types:
+        email_address: *text_type
+        is_tester: *boolean_type
+        is_order_channel: *boolean_type
+        is_vip: *boolean_type
+    lookup_x3_document_types:
+      +column_types:
+        document_type_code: *int_type
+        document_type: *text_type
+    lookup_x3_serial_cost_by_serial_number:
+      +column_types:
+        serial_number: *text_type
+        serial_cost: *float_type
+    lookup_email_domains:
+      +column_types:
+        email_domain: *text_type
+        not_identifiable: *boolean_type
+        not_unique: *boolean_type
+        not_gmv: *boolean_type
+    lookup_farfetch_order_status:
+      +column_types:
+        farfetch_order_status_id: *text_type
+        has_payment: *boolean_type
+        has_refund: *boolean_type
+        has_mag_order: *boolean_type
+        farfetch_order_status: *text_type
+    lookup_fedex_accounts:
+      +column_types:
+        fedex_account_id: *text_type
+        shipping_account: *text_type
+    lookup_fedex_carrier_codes:
+      +column_types:
+        ship_method: *text_type
+        fedex_carrier_code: *text_type
+    lookup_fedex_p2p_expected_costs:
+      +column_types:
+        service_type: *text_type
+        service_zone: *text_type
+        weight: *int_type
+        expected_cost: *float_type
+    lookup_fps_stock_points:
+      +column_types:
+        fps_stock_point_id: *text_type
+        channel_or_gateway_footer: *text_type
+        is_excluded_from_financial_reporting: *boolean_type
+        api_key: *text_type
+    lookup_fps_tenants:
+      +column_types:
+        fps_tenant_id: *text_type
+        fps_tenant_name: *text_type
+        business_unit: *text_type
+        sales_channel: *text_type
+        channel_or_gateway_header: *text_type
+        shipping_is_withheld: *boolean_type
+        is_excluded_from_financial_reporting: *boolean_type
+    lookup_free_shipping_value_history:
+      +column_types:
+        channel_or_gateway: *text_type
+        shipping_is_express: *boolean_type
+        shipping_is_international: *boolean_type
+        free_shipping_value_source: *text_type
+        free_shipping_value: *decimal_type
+        valid_from: *timestamptz_type
+    lookup_geography_groups:
+      +column_types:
+        geography: *text_type
+        geography_group: *text_type
+    lookup_magento_cancel_and_refund_reasons:
+      +column_types:
+        refund_reason: *text_type
+        cancel_and_refund_reason: *text_type
+    lookup_magento_order_statuses:
+      +column_types:
+        magento_order_status: *text_type
+        closes_line: *boolean_type
+        should_ship: *boolean_type
+        should_close: *boolean_type
+        should_not_ship: *boolean_type
+    lookup_order_shipping_descriptions:
+      +column_types:
+        order_shipping_description: *text_type
+        is_express: *boolean_type
+    lookup_paypal_transaction_events:
+      +column_types:
+        transaction_event_code: *text_type
+        transaction_event: *text_type
+    lookup_seller_portal_purchase_reference_by_ticket_number:
+      +column_types:
+        ticket_number: *text_type
+        purchase_reference: *text_type
+    lookup_ship_methods:
+      +column_types:
+        ship_method: *text_type
+        is_express: *boolean_type
+    lookup_shipping_countries:
+      +column_types:
+        shipping_country: *text_type
+        geography_type: *text_type
+        geography: *text_type
+        iso_alpha_3_country_code: *text_type
+    lookup_shipping_regions:
+      +column_types:
+        shipping_country: *text_type
+        shipping_region: *text_type
+        geography_type: *text_type
+        geography: *text_type
+    meta_import_tables:
+      +column_types:
+        import_table: *text_type
+        import_type: *text_type
+        import_frequency: *text_type
+        table_type: *text_type
+    meta_prod_writes:
+      +column_types:
+        write_type: *text_type
+        write_name: *text_type
+        write_frequency: *text_type
+    meta_reporting_table_types:
+      +column_types:
+        view_header: *text_type
+        view_type: *text_type
+        refresh_frequency: *text_type
+        source_schema: *text_type
+        view_type_sequence: *int_type
+    meta_reporting_tables:
+      +column_types:
+        reporting_table: *text_type
+        reporting_schema: *text_type
+        table_type: *text_type
+        rebuild_sequence: *int_type
+        dbt_model: *text_type
+    meta_sync_sources:
+      +column_types:
+        sync_source: *text_type
+        schema_name: *text_type
+        convert_table: *text_type
+        rebuild_hour: *int_type
+        source_engine: *text_type
+        source_dialect: *text_type
+        target_schema: *text_type
+    meta_upload_files:
+      +column_types:
+        upload_destination: *text_type
+        source_type: *text_type
+        upload_frequency: *text_type
+    meta_views:
+      +column_types:
+        view_type: *text_type
+        view_schema: *text_type
+        view_name: *text_type
+        view_sequence: *int_type
+        dbt_model: *text_type
+    pii_fields:
+      +column_types:
+        model_name: *text_type
+        field_name: *text_type
+        pii_attribute: *text_type
+        pii_level: *text_type
+        note: *text_type
+    private_client_customers:
+      +column_types:
+        email_address: *text_type
+        activation_date: *date_type
+    calendars_stadium_goods_holidays:
+      +column_types:
+        date: *date_type
+        holiday: *text_type
+        type: *text_type
+    lookup_column_names:
+      +column_types:
+        table_name: *text_type
+        column_name_pg: *text_type
+        column_name_bq: *text_type
+    lookup_fix_parent_product_id_ff_financials:
+      +column_types:
+        fps_parent_product_id: *text_type
+        fps_order_id: *text_type
+        fps_parent_product_id_fix: *text_type

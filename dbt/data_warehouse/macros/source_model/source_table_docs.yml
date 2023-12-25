@@ -1,0 +1,17 @@
+version: 2
+
+macros:
+  - name: source_table_docs
+    description: |
+      This macro accesses dbt's internal `graph` object and returns a dictionary representing
+      the documented attributes of a source table. It is called by the `source_model_columns()`
+      and, for incremental source models, the `source_model_filter()` macros
+    docs:
+      show: true
+    arguments:
+      - name: source_name
+        type: dbt identifier
+        description: Required. The name of a dbt-documented source. Same as the first argument of the standard dbt `source()` macro.
+      - name: source_table
+        type: dbt identifier
+        description: Required. The name of a table for that dbt-documented source. Same as the second argument of the standard dbt `source()` macro.

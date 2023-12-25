@@ -1,0 +1,22 @@
+version: 2
+
+macros:
+  - name: json_dict_to_rows
+    description: |
+      This macro returns a SQL query that unpivots a dictionary-like JSON object into a result set with one row for each
+      key-value pair in each row of the table containing the JSON dictionary, with the dictionary keys (as strings) in a
+      column named `key` and their corresponding values (as JSON objects) in a column named `value`.
+      The query also includes an additional column named by the `table_pk` argument, which should be used to join
+      the results back to the table containing the JSON dictionary.
+    docs:
+      show: true
+    arguments:
+      - name: json_dict
+        type: column_name
+        description: "A column name representing (or any other SQL expression that resolves to) a JSON object structured as a set of key-value pairs."
+      - name: table_reference
+        type: resource
+        description: "A call to dbt ref() or source() function for the table containing `json_dict`"
+      - name: table_pk
+        type: column_name
+        description: "The primary key of `table_reference`. Use this to join the macro output back to `table_reference`"

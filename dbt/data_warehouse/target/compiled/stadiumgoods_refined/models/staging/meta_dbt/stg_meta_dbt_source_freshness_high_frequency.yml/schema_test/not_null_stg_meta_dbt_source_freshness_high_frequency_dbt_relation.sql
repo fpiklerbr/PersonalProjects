@@ -1,0 +1,11 @@
+
+    
+    
+
+
+
+select count(*) as validation_errors
+from `ff-stadiumgoods-refined-dev`.`fernandop_dbt_staging`.`stg_meta_dbt_source_freshness_high_frequency`
+where dbt_relation is null
+
+

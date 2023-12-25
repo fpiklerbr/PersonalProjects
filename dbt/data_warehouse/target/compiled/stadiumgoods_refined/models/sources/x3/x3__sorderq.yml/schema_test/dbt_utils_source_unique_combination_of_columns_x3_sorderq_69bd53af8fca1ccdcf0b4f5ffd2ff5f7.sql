@@ -1,0 +1,21 @@
+
+
+
+
+
+
+with validation_errors as (
+
+    select
+        soqsta_0, shidat_0, dlvpiocmp_0, sohnum_0, soplin_0, soqseq_0
+    from `ff-stadiumgoods-raw-live`.`live`.`sorderq`
+
+    group by soqsta_0, shidat_0, dlvpiocmp_0, sohnum_0, soplin_0, soqseq_0
+    having count(*) > 1
+
+)
+
+select count(*)
+from validation_errors
+
+

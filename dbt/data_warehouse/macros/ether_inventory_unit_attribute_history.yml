@@ -1,0 +1,19 @@
+version: 2
+
+macros:
+  - name: ether_inventory_unit_attribute_history
+    description: |
+      Macro to returns a SELECT statement that:
+      1. Filters `stg_ether_inventory_unit_attribute_changes` by the `attribute_name` argument
+      2. Adds two new columns to that model that transform the logged `old_value` and `new_value`
+         according to the documentation for the attribute in the raw source-table
+         `seller_portal__ether_wms_inventory_units`, named `previous_{source-column alias}` and
+         `{source-column alias}` respectively
+    docs:
+      show: true
+    arguments:
+      - name: attribute_name
+        type: text
+        description: |
+          A valid value of `stg_ether_inventory_unit_attribute_changes.attribute_name`,
+          which corresponds to a column name in the raw source table `seller_portal.ether_wms_inventory_units`.

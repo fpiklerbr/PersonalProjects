@@ -1,0 +1,537 @@
+version: 2
+
+selectors:
+  - name: sources_selector
+    description: "All of Stadium Goods Sources & Definitions"
+    definition:
+      union:
+        - method: path
+          value: models/sources
+          child: false
+          parent: false
+          indirect_selections: cautious
+
+  - name: adyen__source
+    description: "All of Stadium Goods Sources & Definitions"
+    definition:
+      union:
+        - method: path
+          value: models/sources/adyen/
+          child: false
+          parent: false
+          indirect_selections: cautious
+  - name: affirm__source
+    description: "All of Stadium Goods Sources & Definitions"
+    definition:
+      union:
+        - method: path
+          value: models/sources/affirm/
+          child: false
+          parent: false
+          indirect_selections: cautious
+
+  - name: affirm__source
+    description: "All of Stadium Goods Sources & Definitions"
+    definition:
+      union:
+        - method: path
+          value: models/sources/affirm/
+          child: false
+          parent: false
+          indirect_selections: cautious
+
+  - name: amazon_pay__source
+    description: "Selector for amazon_pay source"
+    definition:
+      union:
+        - method: path
+          value: models/sources/amazon_pay/
+          child: false
+          parent: false
+          indirect_selections: cautious
+  - name: amazon_pay__source
+    description: "Selector for amazon_pay source"
+    definition:
+      union:
+        - method: path
+          value: models/sources/amazon_pay/
+          child: false
+          parent: false
+          indirect_selections: cautious
+
+  - name: audit__source
+    description: "Selector for audit source"
+    definition:
+      union:
+        - method: path
+          value: models/sources/audit/
+          child: false
+          parent: false
+          indirect_selections: cautious
+
+  - name: barrett__source
+    description: "Selector for barrett source"
+    definition:
+      union:
+        - method: path
+          value: models/sources/barrett/
+          child: false
+          parent: false
+          indirect_selections: cautious
+
+  - name: braintree__source
+    description: "Selector for braintree source"
+    definition:
+      union:
+        - method: path
+          value: models/sources/braintree/
+          child: false
+          parent: false
+          indirect_selections: cautious
+
+  - name: cap__source
+    description: "Selector for cap source"
+    definition:
+      union:
+        - method: path
+          value: models/sources/cap/
+          child: false
+          parent: false
+          indirect_selections: cautious
+
+  - name: chw__source
+    description: "Selector for chw source"
+    definition:
+      union:
+        - method: path
+          value: models/sources/chw/
+          child: false
+          parent: false
+          indirect_selections: cautious
+
+  - name: citcon__source
+    description: "Selector for citcon source"
+    definition:
+      union:
+        - method: path
+          value: models/sources/citcon/
+          child: false
+          parent: false
+          indirect_selections: cautious
+
+  - name: dhl__source
+    description: "Selector for dhl source"
+    definition:
+      union:
+        - method: path
+          value: models/sources/dhl/
+          child: false
+          parent: false
+          indirect_selections: cautious
+
+  - name: dor__source
+    description: "Selector for dor source"
+    definition:
+      union:
+        - method: path
+          value: models/sources/dor/
+          child: false
+          parent: false
+          indirect_selections: cautious
+
+  - name: dsco__source
+    description: "Selector for dsco source"
+    definition:
+      union:
+        - method: path
+          value: models/sources/dsco/
+          child: false
+          parent: false
+          indirect_selections: cautious
+
+  - name: dss__source
+    description: "Selector for dss source"
+    definition:
+      union:
+        - method: path
+          value: models/sources/dss/
+          child: false
+          parent: false
+          indirect_selections: cautious
+
+  - name: ecommerce__source
+    description: "Selector for ecommerce source"
+    definition:
+      union:
+        - method: path
+          value: models/sources/ecommerce/
+          child: false
+          parent: false
+          indirect_selections: cautious
+
+  - name: ether__source
+    description: "Selector for ether source"
+    definition:
+      union:
+        - method: path
+          value: models/sources/ether/
+          child: false
+          parent: false
+          indirect_selections: cautious
+  - name: fancy__source
+    description: "Selector for fancy source"
+    definition:
+      union:
+        - method: path
+          value: models/sources/fancy/
+          child: false
+          parent: false
+          indirect_selections: cautious
+
+  - name: farfetch__source
+    description: "Selector for farfetch source"
+    definition:
+      union:
+        - method: path
+          value: models/sources/farfetch/
+          child: false
+          parent: false
+          indirect_selections: cautious
+
+  - name: fedex__source
+    description: "Selector for fedex source"
+    definition:
+      union:
+        - method: path
+          value: models/sources/fedex/
+          child: false
+          parent: false
+          indirect_selections: cautious
+
+  - name: ff_product_matching__source
+    description: "Selector for ff_product_matching source"
+    definition:
+      union:
+        - method: path
+          value: models/sources/ff_product_matching/
+          child: false
+          parent: false
+          indirect_selections: cautious
+
+  - name: finance_snapshots__source
+    description: "Selector for finance_snapshots source"
+    definition:
+      union:
+        - method: path
+          value: models/sources/finance_snapshots/
+          child: false
+          parent: false
+          indirect_selections: cautious
+
+  - name: firebase__source
+    description: "Selector for firebase source"
+    definition:
+      union:
+        - method: path
+          value: models/sources/firebase/
+          child: false
+          parent: false
+          indirect_selections: cautious
+
+  - name: flow__source
+    description: "Selector for flow source"
+    definition:
+      union:
+        - method: path
+          value: models/sources/flow/
+          child: false
+          parent: false
+          indirect_selections: cautious
+
+  - name: forex__source
+    description: "Selector for forex source"
+    definition:
+      union:
+        - method: path
+          value: models/sources/forex/
+          child: false
+          parent: false
+          indirect_selections: cautious
+
+  - name: funnel__source
+    description: "Selector for funnel source"
+    definition:
+      union:
+        - method: path
+          value: models/sources/funnel/
+          child: false
+          parent: false
+          indirect_selections: cautious
+
+  - name: google_analytics__source
+    description: "Selector for google_analytics source"
+    definition:
+      union:
+        - method: path
+          value: models/sources/google_analytics/
+          child: false
+          parent: false
+          indirect_selections: cautious
+
+  - name: law__source
+    description: "Selector for law source"
+    definition:
+      union:
+        - method: path
+          value: models/sources/law/
+          child: false
+          parent: false
+          indirect_selections: cautious
+
+  - name: link__source
+    description: "Selector for link source"
+    definition:
+      union:
+        - method: path
+          value: models/sources/link/
+          child: false
+          parent: false
+          indirect_selections: cautious
+
+  - name: linkshare__source
+    description: "Selector for linkshare source"
+    definition:
+      union:
+        - method: path
+          value: models/sources/linkshare/
+          child: false
+          parent: false
+          indirect_selections: cautious
+
+  - name: magento__source
+    description: "Selector for magento source"
+    definition:
+      union:
+        - method: path
+          value: models/sources/magento/
+          child: false
+          parent: false
+          indirect_selections: cautious
+
+  - name: mainfreight__source
+    description: "Selector for mainfreight source"
+    definition:
+      union:
+        - method: path
+          value: models/sources/mainfreight/
+          child: false
+          parent: false
+          indirect_selections: cautious
+
+  - name: meta_dbt__source
+    description: "Selector for meta_dbt source"
+    definition:
+      union:
+        - method: path
+          value: models/sources/meta_dbt/
+          child: false
+          parent: false
+          indirect_selections: cautious
+
+  - name: meta_etl__source
+    description: "Selector for meta_etl source"
+    definition:
+      union:
+        - method: path
+          value: models/sources/meta_etl/
+          child: false
+          parent: false
+          indirect_selections: cautious
+
+  - name: meta_postgres__source
+    description: "Selector for meta_postgres source"
+    definition:
+      union:
+        - method: path
+          value: models/sources/meta_postgres/
+          child: false
+          parent: false
+          indirect_selections: cautious
+
+  - name: paypal__source
+    description: "Selector for paypal source"
+    definition:
+      union:
+        - method: path
+          value: models/sources/paypal/
+          child: false
+          parent: false
+          indirect_selections: cautious
+
+  - name: private_client__source
+    description: "Selector for private_client source"
+    definition:
+      union:
+        - method: path
+          value: models/sources/private_client/
+          child: false
+          parent: false
+          indirect_selections: cautious
+
+  - name: riskified__source
+    description: "Selector for riskified source"
+    definition:
+      union:
+        - method: path
+          value: models/sources/riskified/
+          child: false
+          parent: false
+          indirect_selections: cautious
+
+  - name: sales_channel__source
+    description: "Selector for sales_channel source"
+    definition:
+      union:
+        - method: path
+          value: models/sources/sales_channel/
+          child: false
+          parent: false
+          indirect_selections: cautious
+
+  - name: seller_portal__source
+    description: "Selector for seller_portal source"
+    definition:
+      union:
+        - method: path
+          value: models/sources/seller_portal/
+          child: false
+          parent: false
+          indirect_selections: cautious
+
+  - name: sg_finance__source
+    description: "Selector for sg_finance source"
+    definition:
+      union:
+        - method: path
+          value: models/sources/sg_finance/
+          child: false
+          parent: false
+          indirect_selections: cautious
+
+  - name: sgd__source
+    description: "Selector for sgd source"
+    definition:
+      union:
+        - method: path
+          value: models/sources/sgd/
+          child: false
+          parent: false
+          indirect_selections: cautious
+
+  - name: sneaker_news__source
+    description: "Selector for sneaker_news source"
+    definition:
+      union:
+        - method: path
+          value: models/sources/sneaker_news/
+          child: false
+          parent: false
+          indirect_selections: cautious
+
+  - name: stripe__source
+    description: "Selector for stripe source"
+    definition:
+      union:
+        - method: path
+          value: models/sources/stripe/
+          child: false
+          parent: false
+          indirect_selections: cautious
+
+  - name: tmall__source
+    description: "Selector for tmall source"
+    definition:
+      union:
+        - method: path
+          value: models/sources/tmall/
+          child: false
+          parent: false
+          indirect_selections: cautious
+
+  - name: vantiv__source
+    description: "Selector for vantiv source"
+    definition:
+      union:
+        - method: path
+          value: models/sources/vantiv/
+          child: false
+          parent: false
+          indirect_selections: cautious
+
+  - name: x3__source
+    description: "Selector for x3 source"
+    definition:
+      union:
+        - method: path
+          value: models/sources/x3/
+          child: false
+          parent: false
+          indirect_selections: cautious
+
+  - name: zebra__source
+    description: "Selector for zebra source"
+    definition:
+      union:
+        - method: path
+          value: models/sources/zebra/
+          child: false
+          parent: false
+          indirect_selections: cautious
+
+# application selectors - e.g magento, ether, seller_portal
+
+  - name: magento
+    description: "Selector for x3 source"
+    definition:
+      union:
+        - method: path
+          value: models/sources/magento/
+          child: false
+          parent: false
+          indirect_selections: cautious
+        - method: path
+          value: models/staging/magento/
+          child: false
+          parent: true
+          indirect_selections: cautious
+
+
+  - name: ether
+    description: "Selector for zebra source"
+    definition:
+      union:
+        - method: path
+          value: models/sources/ether/
+          child: false
+          parent: false
+          indirect_selections: cautious
+        - method: path
+          value: models/staging/ether/
+          child: false
+          parent: true
+          indirect_selections: cautious
+
+  - name: seller_portal
+    description: "Selector for zebra source"
+    definition:
+      union:
+        - method: path
+          value: models/sources/seller_portal/
+          child: false
+          parent: false
+          indirect_selections: cautious
+        - method: path
+          value: models/staging/seller_portal/
+          child: false
+          parent: true
+          indirect_selections: cautious

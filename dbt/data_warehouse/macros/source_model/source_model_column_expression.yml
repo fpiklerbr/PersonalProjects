@@ -1,0 +1,31 @@
+version: 2
+
+macros:
+  - name: source_model_column_expression
+    description: |
+      This macro is used by the `source_model_sql` macro to generate a SQL expression that transforms a single column
+      in a raw source table into a corresponding column in a refined source model. It is called iteratively by the
+      `source_model_columns` macro, and takes its arguments from column properties parsed from yml documentation there.
+      Columns documented but not present in the database are derived from `meta.macro` or `meta.sql` properties if present,
+      and are otherwise NULL. Other columns are cleaned and may be transformed by various additional `meta` properties.
+      All columns are cast as the `refined_type` argument (the column's document `type` property if present, otherwise
+      'text'), and may require special handling depending on the `raw_type` argument (which represents the raw column's
+      actual type according to the target database's information schema).
+    docs:
+      show: true
+    arguments:
+      - name: name
+        type: dbt_property
+        description: The `name` property of a single column in source-table documentation
+      - name: meta
+        type: dbt_property
+        description: The column's documented `meta` property
+      - name: raw_type
+        type: data_type
+        description: |
+          The column's actual data type in the raw source model, according to the target database's information schema
+      - name: refined_type
+        type: data_type
+        description: |
+          The column's desired data type in the refined source model. Parsed from its documented `type` or `data_type`
+          property, defaulting to 'text'

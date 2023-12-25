@@ -1,0 +1,19 @@
+version: 2
+
+macros:
+  - name: source_model_alias
+    description: |
+      This macro returns a string to be used for the `alias` configuration of all source models. It concenates the
+      `source_name` and `source_table` arguments into a table name appropriate for the target environment. For the
+      `prod` target on PostgreSQL, this is `base_{source_name}_{source_table}`; for all other targets, it's
+      `{source_name}__{source_table}`. It also limits the length of the table-name string to 50 characters for all
+      targets on PG, to avoid creating database object names that are too long.
+    docs:
+      show: true
+    arguments:
+      - name: source_name
+        type: dbt identifier
+        description: Required. The name of a dbt-documented source. Same as the first argument of the standard dbt `source()` macro.
+      - name: source_table
+        type: dbt identifier
+        description: Required. The name of a table for that dbt-documented source. Same as the second argument of the standard dbt `source()` macro.

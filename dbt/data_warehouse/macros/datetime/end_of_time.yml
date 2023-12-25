@@ -1,0 +1,8 @@
+version: 2
+
+macros:
+  - name: end_of_time
+    description: |
+      Convenience macro taking no arguments and returning a constant: a timezone-aware timestamp of '2038-01-19 03:14:08+00'.
+      Used as a filler for `valid_from` in the first or only value of a type II SCD.
+    arguments: []

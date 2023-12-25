@@ -1,0 +1,15 @@
+version: 2
+
+macros:
+  - name: generate_base_model_from_source_table
+    description: '{{ doc("generate_base_model_from_source_table_description") }}'
+    arguments:
+      - name: source_name
+        type: dbt identifier
+        description: Required. The name of a dbt-documented source. Same as the first argument of the standard dbt source() macro.
+      - name: table_name
+        type: dbt identifier
+        description: Required. The name of a table for that dbt-documented source. Same as the second argument of the standard dbt source() macro.
+      - name: incremental_filter
+        type: jinja variable
+        description: Optional. A representation of the SQL WHERE clause used for incremental materializations, set within the base model before calling this macro. See base_sales_channel_webhook_log for an example.

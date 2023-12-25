@@ -1,0 +1,16 @@
+version: 2
+
+macros:
+  - name: finance_line_transactions_transformation
+    description: |
+      This macro slices the `Dispatched`,`Returned`,'Cancelled', and `Deferred` order lines AS `Sales` from `stadium_finance_lines`,
+      and further create `Returned Inventory` and `Refunded Payment` lines from the subset, rename some columns towards finance team's standard
+      union these parts together, and then mapping with order lines transactions happening in current month (or the most recent close month)
+    docs:
+      show: true
+    arguments:
+      - name: build_from_snapshots
+        type: boolean
+        description: |
+          true means building from `stadium_finance_lines` most recent snapshot
+          , Otherwise will build from live version `stadium_finance_lines`
