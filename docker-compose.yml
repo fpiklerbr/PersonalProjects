@@ -2,7 +2,7 @@ version: "3"
 services:
   dbt:
     environment:
-      - DBT_PROFILES_DIR=config
+      - GOOGLE_APPLICATION_CREDENTIALS=/config/bq_service_account.json
     env_file:
       - ./dbt/data_warehouse/config/dbt.env
     build:
@@ -12,15 +12,15 @@ services:
       - "127.0.0.1:8080:8080"
       - "8001:8001"
     volumes:
-      - type: bind
-        source: ./dbt/data_warehouse
-        target: /dbt/data_warehouse
+      - ./dbt/data_warehouse:/dbt/data_warehouse
+      - ./config:/config
     stdin_open: true
     tty: true
     working_dir: /dbt/data_warehouse
 
   etl_service:
-    # Define the configuration for your etl_service here
+    environment:
+      - GOOGLE_APPLICATION_CREDENTIALS=/config/bq_service_account.json
     build:
       context: ./
       dockerfile: Dockerfile
@@ -28,10 +28,8 @@ services:
       - "8100:8100"  # Suggested port for etl_service
       - "8200:8200"  # Another option if needed
     volumes:
-      - type: bind
-        source: ./_etl_scripts
-        target: /_etl_scripts
-    # Other configurations (environment, env_file, etc.) as needed
+      - ./_etl_scripts:/_etl_scripts
+      - ./config:/config
     stdin_open: true
     tty: true
     working_dir: /_etl_scripts
