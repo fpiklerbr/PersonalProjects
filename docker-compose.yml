@@ -1,13 +1,5 @@
 version: "3"
 services:
-  etl:
-    build:
-      context: .
-      dockerfile: Dockerfile-pycharm-v2
-    volumes:
-      - type: bind
-        source: ./
-        target: /_etl_scripts
   dbt:
     environment:
       - DBT_PROFILES_DIR=config
@@ -16,13 +8,13 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    ports: # to access dbt docs site locally
+    ports:
       - "127.0.0.1:8080:8080"
       - "8001:8001"
     volumes:
       - type: bind
-        source: ./
-        target: /_etl_scripts
-    stdin_open: true # docker run -i
-    tty: true        # docker run -t
+        source: ./dbt/data_warehouse
+        target: /dbt/data_warehouse
+    stdin_open: true
+    tty: true
     working_dir: /dbt/data_warehouse

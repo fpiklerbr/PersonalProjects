@@ -32,7 +32,7 @@ on-run-end:
   - "{{ log_invocation_end() }}"
 
 models:
-  stadiumgoods_refined:
+  pktech-gold:
     pre-hook:
       - "{{ log_model_run_event('start') }}"
     post-hook:
@@ -60,7 +60,7 @@ models:
       +unlogged: True
 
 seeds:
-  stadiumgoods_refined:
+  pktech-gold:
     +quote_columns: False
     +enabled: True
     +schema: seeds
