@@ -1,28 +1,23 @@
-import boto3
-from botocore.exceptions import ClientError
+from google.cloud import secretmanager
+import os
 
-def initialize_aws_client():
-    """
-    Initialize AWS client for Systems Manager.
-    """
-    try:
-        client = boto3.client('ssm')
-        return client
-    except ClientError as e:
-        print(f"An error occurred: {e}")
-        return None
+# Path to your service account key file
+service_account_path = "PersonalProjects/dbt/data_warehouse/config/bq_service_account.json"
 
-def get_parameter(client, parameter_name, with_decryption=True):
-    """
-    Fetch a parameter from AWS Systems Manager Parameter Store.
-    :param client: Boto3 client
-    :param parameter_name: Name of the parameter
-    :param with_decryption: Boolean to determine if the parameter is encrypted
-    :return: Parameter value or None if not found or on error
-    """
-    try:
-        response = client.get_parameter(Name=parameter_name, WithDecryption=with_decryption)
-        return response['Parameter']['Value']
-    except ClientError as e:
-        print(f"Could not fetch parameter: {e}")
-        return None
+# Setting the environment variable for authentication
+os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = service_account_path
+
+# Create the Secret Manager client
+secret_client = secretmanager.SecretManagerServiceClient()
+
+# Your project ID and secret ID
+project_id = "933623807635"
+secret_id = "ftp_secrets"
+
+# Access the secret version
+resource_name = f"projects/{project_id}/secrets/{secret_id}/versions/latest"
+response = secret_client.access_secret_version(request={"name": resource_name})
+secret_value = response.payload.data.decode("UTF-8")
+
+# Print the secret value
+print("Secret Value:", secret_value)
