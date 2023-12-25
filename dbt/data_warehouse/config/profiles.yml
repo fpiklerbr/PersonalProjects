@@ -17,9 +17,7 @@ default:
     bq_dev:
       type: bigquery
       method: service-account
-      keyfile: config/bq_service_account.json
-      project: ff-stadiumgoods-refined-dev
-      dataset: "{{ env_var('BQ_DEV_DATASET') }}"
+      project: pktech
       threads: 16
       timeout_seconds: 300
       priority: interactive
