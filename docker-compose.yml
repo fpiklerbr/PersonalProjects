@@ -6,7 +6,7 @@ services:
     env_file:
       - ./dbt/data_warehouse/config/dbt.env
     build:
-      context: .
+      context: ./
       dockerfile: Dockerfile
     ports:
       - "127.0.0.1:8080:8080"
@@ -22,10 +22,11 @@ services:
   etl_service:
     # Define the configuration for your etl_service here
     build:
-      context: ./_etl_scripts
+      context: ./
       dockerfile: Dockerfile
     ports:
-      - "127.0.0.1:PORT_NUMBER:INTERNAL_PORT"
+      - "8100:8100"  # Suggested port for etl_service
+      - "8200:8200"  # Another option if needed
     volumes:
       - type: bind
         source: ./_etl_scripts

@@ -1,7 +1,6 @@
 # Use an official Python runtime as a parent image
 FROM python:3.9-slim
 
-
 # Install tini
 RUN apt-get update && apt-get install -y tini && rm -rf /var/lib/apt/lists/*
 
@@ -17,9 +16,12 @@ RUN python -m pip install --upgrade pip
 # Activate the virtual environment and install the Python dependencies
 RUN . /app/venv/bin/activate && pip install --no-cache-dir -r requirements.txt
 
+# Copy the dbt and _etl_scripts directories into the container
+COPY ./dbt /dbt
+COPY ./_etl_scripts /_etl_scripts
+
 # Set environment variables to ensure commands run inside the virtual environment
 ENV PATH="/app/venv/bin:$PATH"
-
 
 # entrypoint
 ENTRYPOINT [ "/usr/bin/tini", "--" ]
