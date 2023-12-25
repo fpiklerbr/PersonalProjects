@@ -1,0 +1,10 @@
+# Ignore all log files
+*.log
+# Ignore all .env files
+.env*
+dbt_packages/
+dbt_modules/
+package-lock.yml
+logs/
+analysis/
+config/
