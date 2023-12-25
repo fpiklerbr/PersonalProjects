@@ -1,0 +1,158 @@
+
+
+============================== 21:38:26.995144 | ae3a6517-dcf2-4d62-932a-655702476604 ==============================
+[0m21:38:26.995144 [info ] [MainThread]: Running with dbt=1.7.2
+[0m21:38:27.001703 [debug] [MainThread]: running dbt with arguments {'printer_width': '80', 'indirect_selection': 'eager', 'log_cache_events': 'False', 'write_json': 'True', 'partial_parse': 'True', 'cache_selected_only': 'False', 'warn_error': 'None', 'fail_fast': 'False', 'profiles_dir': 'config', 'log_path': '/dbt/data_warehouse/logs', 'version_check': 'True', 'debug': 'False', 'use_colors': 'True', 'use_experimental_parser': 'False', 'no_print': 'None', 'quiet': 'False', 'log_format': 'default', 'static_parser': 'True', 'warn_error_options': 'WarnErrorOptions(include=[], exclude=[])', 'invocation_command': 'dbt deps', 'target_path': 'None', 'introspect': 'True', 'send_anonymous_usage_stats': 'False'}
+[0m21:38:27.020763 [warn ] [MainThread]: [[33mWARNING[0m]: Deprecated functionality
+The `source-paths` config has been renamed to `model-paths`. Please update your
+`dbt_project.yml` configuration to reflect this change.
+[0m21:38:27.021540 [warn ] [MainThread]: [[33mWARNING[0m]: Deprecated functionality
+The `data-paths` config has been renamed to `seed-paths`. Please update your
+`dbt_project.yml` configuration to reflect this change.
+[0m21:38:27.093944 [error] [MainThread]: Encountered an error:
+Runtime Error
+  Could not parse selector file data: 
+  null
+  ...
+  
+  Valid root-level selector definitions: union, intersection, string, dictionary. No lists. 
+  https://docs.getdbt.com/reference/node-selection/yaml-selectors
+[0m21:38:27.096157 [debug] [MainThread]: Resource report: {"command_name": "deps", "command_wall_clock_time": 0.14870209, "process_user_time": 1.990054, "process_kernel_time": 0.129353, "process_mem_max_rss": "93376", "process_in_blocks": "88112", "process_out_blocks": "792", "command_success": false}
+[0m21:38:27.096738 [debug] [MainThread]: Command `dbt deps` failed at 21:38:27.096613 after 0.15 seconds
+[0m21:38:27.097045 [debug] [MainThread]: Flushing usage events
+
+
+============================== 21:40:14.477452 | b671479d-0c7f-4f7d-98c2-d624e768260f ==============================
+[0m21:40:14.477452 [info ] [MainThread]: Running with dbt=1.7.2
+[0m21:40:14.480286 [debug] [MainThread]: running dbt with arguments {'printer_width': '80', 'indirect_selection': 'eager', 'log_cache_events': 'False', 'write_json': 'True', 'partial_parse': 'True', 'cache_selected_only': 'False', 'warn_error': 'None', 'fail_fast': 'False', 'debug': 'False', 'log_path': '/dbt/data_warehouse/logs', 'profiles_dir': 'config', 'version_check': 'True', 'use_colors': 'True', 'use_experimental_parser': 'False', 'no_print': 'None', 'quiet': 'False', 'warn_error_options': 'WarnErrorOptions(include=[], exclude=[])', 'introspect': 'True', 'log_format': 'default', 'static_parser': 'True', 'target_path': 'None', 'invocation_command': 'dbt deps', 'send_anonymous_usage_stats': 'False'}
+[0m21:40:14.603475 [debug] [MainThread]: Set downloads directory='/tmp/dbt-downloads-euamfbmw'
+[0m21:40:14.604173 [debug] [MainThread]: Making package index registry request: GET https://hub.getdbt.com/api/v1/index.json
+[0m21:40:15.074568 [debug] [MainThread]: Response from registry index: GET https://hub.getdbt.com/api/v1/index.json 200
+[0m21:40:15.076581 [debug] [MainThread]: Making package registry request: GET https://hub.getdbt.com/api/v1/fishtown-analytics/codegen.json
+[0m21:40:15.335060 [debug] [MainThread]: Response from registry: GET https://hub.getdbt.com/api/v1/fishtown-analytics/codegen.json 200
+[0m21:40:15.337041 [warn ] [MainThread]: [[33mWARNING[0m]: Deprecated functionality
+The `fishtown-analytics/codegen` package is deprecated in favor of
+`dbt-labs/codegen`. Please update your `packages.yml` configuration to use
+`dbt-labs/codegen` instead.
+[0m21:40:15.338282 [debug] [MainThread]: Making package registry request: GET https://hub.getdbt.com/api/v1/fishtown-analytics/dbt_utils.json
+[0m21:40:15.687272 [debug] [MainThread]: Response from registry: GET https://hub.getdbt.com/api/v1/fishtown-analytics/dbt_utils.json 200
+[0m21:40:15.691688 [debug] [MainThread]: Making package registry request: GET https://hub.getdbt.com/api/v1/elementary-data/elementary.json
+[0m21:40:16.040124 [debug] [MainThread]: Response from registry: GET https://hub.getdbt.com/api/v1/elementary-data/elementary.json 200
+[0m21:40:16.052355 [debug] [MainThread]: Making package registry request: GET https://hub.getdbt.com/api/v1/dbt-labs/dbt_utils.json
+[0m21:40:16.389319 [debug] [MainThread]: Response from registry: GET https://hub.getdbt.com/api/v1/dbt-labs/dbt_utils.json 200
+[0m21:40:16.409184 [error] [MainThread]: Encountered an error:
+Found duplicate project "dbt_utils". This occurs when a dependency has the same project name as some other dependency.
+[0m21:40:16.410293 [debug] [MainThread]: Resource report: {"command_name": "deps", "command_wall_clock_time": 1.975332, "process_user_time": 2.045454, "process_kernel_time": 0.079822, "process_mem_max_rss": "95296", "process_in_blocks": "2472", "process_out_blocks": "24", "command_success": false}
+[0m21:40:16.410857 [debug] [MainThread]: Command `dbt deps` failed at 21:40:16.410734 after 1.98 seconds
+[0m21:40:16.411169 [debug] [MainThread]: Flushing usage events
+
+
+============================== 21:42:00.361963 | fcfa2d4c-04d1-4fee-bfc0-a5115ba22335 ==============================
+[0m21:42:00.361963 [info ] [MainThread]: Running with dbt=1.7.2
+[0m21:42:00.364926 [debug] [MainThread]: running dbt with arguments {'printer_width': '80', 'indirect_selection': 'eager', 'log_cache_events': 'False', 'write_json': 'True', 'partial_parse': 'True', 'cache_selected_only': 'False', 'warn_error': 'None', 'fail_fast': 'False', 'debug': 'False', 'log_path': '/dbt/data_warehouse/logs', 'version_check': 'True', 'profiles_dir': 'config', 'use_colors': 'True', 'use_experimental_parser': 'False', 'no_print': 'None', 'quiet': 'False', 'warn_error_options': 'WarnErrorOptions(include=[], exclude=[])', 'static_parser': 'True', 'invocation_command': 'dbt deps', 'introspect': 'True', 'target_path': 'None', 'log_format': 'default', 'send_anonymous_usage_stats': 'False'}
+[0m21:42:00.460623 [debug] [MainThread]: Set downloads directory='/tmp/dbt-downloads-bhe_kita'
+[0m21:42:00.461285 [debug] [MainThread]: Making package index registry request: GET https://hub.getdbt.com/api/v1/index.json
+[0m21:42:00.634120 [debug] [MainThread]: Response from registry index: GET https://hub.getdbt.com/api/v1/index.json 200
+[0m21:42:00.635997 [debug] [MainThread]: Making package registry request: GET https://hub.getdbt.com/api/v1/dbt-labs/codegen.json
+[0m21:42:00.888233 [debug] [MainThread]: Response from registry: GET https://hub.getdbt.com/api/v1/dbt-labs/codegen.json 200
+[0m21:42:00.891970 [debug] [MainThread]: Making package registry request: GET https://hub.getdbt.com/api/v1/elementary-data/elementary.json
+[0m21:42:01.124857 [debug] [MainThread]: Response from registry: GET https://hub.getdbt.com/api/v1/elementary-data/elementary.json 200
+[0m21:42:01.133078 [debug] [MainThread]: Making package registry request: GET https://hub.getdbt.com/api/v1/fishtown-analytics/dbt_utils.json
+[0m21:42:01.216738 [debug] [MainThread]: Response from registry: GET https://hub.getdbt.com/api/v1/fishtown-analytics/dbt_utils.json 200
+[0m21:42:01.218795 [warn ] [MainThread]: [[33mWARNING[0m]: Deprecated functionality
+The `fishtown-analytics/dbt_utils` package is deprecated in favor of
+`dbt-labs/dbt_utils`. Please update your `packages.yml` configuration to use
+`dbt-labs/dbt_utils` instead.
+[0m21:42:01.221954 [debug] [MainThread]: Making package registry request: GET https://hub.getdbt.com/api/v1/dbt-labs/dbt_utils.json
+[0m21:42:01.305054 [debug] [MainThread]: Response from registry: GET https://hub.getdbt.com/api/v1/dbt-labs/dbt_utils.json 200
+[0m21:42:01.325853 [error] [MainThread]: Encountered an error:
+Found duplicate project "dbt_utils". This occurs when a dependency has the same project name as some other dependency.
+[0m21:42:01.326992 [debug] [MainThread]: Resource report: {"command_name": "deps", "command_wall_clock_time": 1.0094045, "process_user_time": 2.117217, "process_kernel_time": 0.059639, "process_mem_max_rss": "95344", "process_in_blocks": "8", "process_out_blocks": "16", "command_success": false}
+[0m21:42:01.327632 [debug] [MainThread]: Command `dbt deps` failed at 21:42:01.327471 after 1.01 seconds
+[0m21:42:01.328046 [debug] [MainThread]: Flushing usage events
+
+
+============================== 21:42:16.926375 | d7927984-7fbd-47de-a539-9a4b6ba444b4 ==============================
+[0m21:42:16.926375 [info ] [MainThread]: Running with dbt=1.7.2
+[0m21:42:16.929554 [debug] [MainThread]: running dbt with arguments {'printer_width': '80', 'indirect_selection': 'eager', 'write_json': 'True', 'log_cache_events': 'False', 'partial_parse': 'True', 'cache_selected_only': 'False', 'warn_error': 'None', 'version_check': 'True', 'profiles_dir': 'config', 'log_path': '/dbt/data_warehouse/logs', 'debug': 'False', 'fail_fast': 'False', 'use_colors': 'True', 'use_experimental_parser': 'False', 'no_print': 'None', 'quiet': 'False', 'warn_error_options': 'WarnErrorOptions(include=[], exclude=[])', 'invocation_command': 'dbt deps', 'log_format': 'default', 'static_parser': 'True', 'target_path': 'None', 'introspect': 'True', 'send_anonymous_usage_stats': 'False'}
+[0m21:42:17.031193 [debug] [MainThread]: Set downloads directory='/tmp/dbt-downloads-rqtn6z80'
+[0m21:42:17.031809 [debug] [MainThread]: Making package index registry request: GET https://hub.getdbt.com/api/v1/index.json
+[0m21:42:17.129647 [debug] [MainThread]: Response from registry index: GET https://hub.getdbt.com/api/v1/index.json 200
+[0m21:42:17.131370 [debug] [MainThread]: Making package registry request: GET https://hub.getdbt.com/api/v1/dbt-labs/codegen.json
+[0m21:42:17.212837 [debug] [MainThread]: Response from registry: GET https://hub.getdbt.com/api/v1/dbt-labs/codegen.json 200
+[0m21:42:17.216436 [debug] [MainThread]: Making package registry request: GET https://hub.getdbt.com/api/v1/fishtown-analytics/dbt_utils.json
+[0m21:42:17.299386 [debug] [MainThread]: Response from registry: GET https://hub.getdbt.com/api/v1/fishtown-analytics/dbt_utils.json 200
+[0m21:42:17.301405 [warn ] [MainThread]: [[33mWARNING[0m]: Deprecated functionality
+The `fishtown-analytics/dbt_utils` package is deprecated in favor of
+`dbt-labs/dbt_utils`. Please update your `packages.yml` configuration to use
+`dbt-labs/dbt_utils` instead.
+[0m21:42:17.312491 [info ] [MainThread]: Updating lock file in file path: /dbt/data_warehouse/package-lock.yml
+[0m21:42:17.317903 [debug] [MainThread]: Set downloads directory='/tmp/dbt-downloads-mgnbtqjr'
+[0m21:42:17.322370 [info ] [MainThread]: Installing dbt-labs/codegen
+[0m21:42:17.661643 [info ] [MainThread]: Installed from version 0.3.2
+[0m21:42:17.662118 [info ] [MainThread]: Updated version available: 0.12.1
+[0m21:42:17.662528 [info ] [MainThread]: Installing fishtown-analytics/dbt_utils
+[0m21:42:18.043223 [info ] [MainThread]: Installed from version 0.6.6
+[0m21:42:18.043725 [info ] [MainThread]: Updated version available: 0.7.0
+[0m21:42:18.044248 [info ] [MainThread]: 
+[0m21:42:18.044623 [info ] [MainThread]: Updates available for packages: ['dbt-labs/codegen', 'fishtown-analytics/dbt_utils']                 
+Update your versions in packages.yml, then run dbt deps
+[0m21:42:18.045810 [debug] [MainThread]: Resource report: {"command_name": "deps", "command_success": true, "command_wall_clock_time": 1.1701164, "process_user_time": 2.094212, "process_kernel_time": 0.051078, "process_mem_max_rss": "95372", "process_in_blocks": "112", "process_out_blocks": "2232"}
+[0m21:42:18.046317 [debug] [MainThread]: Command `dbt deps` succeeded at 21:42:18.046199 after 1.17 seconds
+[0m21:42:18.046613 [debug] [MainThread]: Flushing usage events
+
+
+============================== 21:43:41.752264 | df7790eb-87a7-45c9-b4ed-689e780016d4 ==============================
+[0m21:43:41.752264 [info ] [MainThread]: Running with dbt=1.7.2
+[0m21:43:41.755228 [debug] [MainThread]: running dbt with arguments {'printer_width': '80', 'indirect_selection': 'eager', 'write_json': 'True', 'log_cache_events': 'False', 'partial_parse': 'True', 'cache_selected_only': 'False', 'profiles_dir': 'config', 'version_check': 'True', 'debug': 'False', 'log_path': '/dbt/data_warehouse/logs', 'fail_fast': 'False', 'warn_error': 'None', 'use_colors': 'True', 'use_experimental_parser': 'False', 'no_print': 'None', 'quiet': 'False', 'warn_error_options': 'WarnErrorOptions(include=[], exclude=[])', 'introspect': 'True', 'invocation_command': 'dbt deps', 'static_parser': 'True', 'target_path': 'None', 'log_format': 'default', 'send_anonymous_usage_stats': 'False'}
+[0m21:43:41.853223 [debug] [MainThread]: Set downloads directory='/tmp/dbt-downloads-ird3w5mv'
+[0m21:43:41.853865 [debug] [MainThread]: Making package index registry request: GET https://hub.getdbt.com/api/v1/index.json
+[0m21:43:41.997647 [debug] [MainThread]: Response from registry index: GET https://hub.getdbt.com/api/v1/index.json 200
+[0m21:43:41.999278 [debug] [MainThread]: Making package registry request: GET https://hub.getdbt.com/api/v1/dbt-labs/codegen.json
+[0m21:43:42.253462 [debug] [MainThread]: Response from registry: GET https://hub.getdbt.com/api/v1/dbt-labs/codegen.json 200
+[0m21:43:42.257112 [debug] [MainThread]: Making package registry request: GET https://hub.getdbt.com/api/v1/fishtown-analytics/dbt_utils.json
+[0m21:43:42.485933 [debug] [MainThread]: Response from registry: GET https://hub.getdbt.com/api/v1/fishtown-analytics/dbt_utils.json 200
+[0m21:43:42.487853 [warn ] [MainThread]: [[33mWARNING[0m]: Deprecated functionality
+The `fishtown-analytics/dbt_utils` package is deprecated in favor of
+`dbt-labs/dbt_utils`. Please update your `packages.yml` configuration to use
+`dbt-labs/dbt_utils` instead.
+[0m21:43:42.491066 [debug] [MainThread]: Making package registry request: GET https://hub.getdbt.com/api/v1/elementary-data/elementary.json
+[0m21:43:42.832058 [debug] [MainThread]: Response from registry: GET https://hub.getdbt.com/api/v1/elementary-data/elementary.json 200
+[0m21:43:42.840551 [debug] [MainThread]: Making package registry request: GET https://hub.getdbt.com/api/v1/dbt-labs/dbt_utils.json
+[0m21:43:42.924236 [debug] [MainThread]: Response from registry: GET https://hub.getdbt.com/api/v1/dbt-labs/dbt_utils.json 200
+[0m21:43:42.945004 [error] [MainThread]: Encountered an error:
+Found duplicate project "dbt_utils". This occurs when a dependency has the same project name as some other dependency.
+[0m21:43:42.946074 [debug] [MainThread]: Resource report: {"command_name": "deps", "command_wall_clock_time": 1.2357216, "process_user_time": 2.032161, "process_kernel_time": 0.069731, "process_mem_max_rss": "95408", "process_in_blocks": "8", "process_out_blocks": "24", "command_success": false}
+[0m21:43:42.946684 [debug] [MainThread]: Command `dbt deps` failed at 21:43:42.946564 after 1.24 seconds
+[0m21:43:42.947000 [debug] [MainThread]: Flushing usage events
+
+
+============================== 21:43:56.484836 | 6b651477-cbdd-40c1-ac91-2858b8177bfb ==============================
+[0m21:43:56.484836 [info ] [MainThread]: Running with dbt=1.7.2
+[0m21:43:56.487885 [debug] [MainThread]: running dbt with arguments {'printer_width': '80', 'indirect_selection': 'eager', 'write_json': 'True', 'log_cache_events': 'False', 'partial_parse': 'True', 'cache_selected_only': 'False', 'profiles_dir': 'config', 'debug': 'False', 'warn_error': 'None', 'log_path': '/dbt/data_warehouse/logs', 'version_check': 'True', 'fail_fast': 'False', 'use_colors': 'True', 'use_experimental_parser': 'False', 'no_print': 'None', 'quiet': 'False', 'warn_error_options': 'WarnErrorOptions(include=[], exclude=[])', 'introspect': 'True', 'static_parser': 'True', 'invocation_command': 'dbt deps', 'target_path': 'None', 'log_format': 'default', 'send_anonymous_usage_stats': 'False'}
+[0m21:43:56.583814 [debug] [MainThread]: Set downloads directory='/tmp/dbt-downloads-e0j16wzv'
+[0m21:43:56.584501 [debug] [MainThread]: Making package index registry request: GET https://hub.getdbt.com/api/v1/index.json
+[0m21:43:56.673057 [debug] [MainThread]: Response from registry index: GET https://hub.getdbt.com/api/v1/index.json 200
+[0m21:43:56.674763 [debug] [MainThread]: Making package registry request: GET https://hub.getdbt.com/api/v1/dbt-labs/codegen.json
+[0m21:43:56.757841 [debug] [MainThread]: Response from registry: GET https://hub.getdbt.com/api/v1/dbt-labs/codegen.json 200
+[0m21:43:56.761204 [debug] [MainThread]: Making package registry request: GET https://hub.getdbt.com/api/v1/elementary-data/elementary.json
+[0m21:43:56.845629 [debug] [MainThread]: Response from registry: GET https://hub.getdbt.com/api/v1/elementary-data/elementary.json 200
+[0m21:43:56.854148 [debug] [MainThread]: Making package registry request: GET https://hub.getdbt.com/api/v1/dbt-labs/dbt_utils.json
+[0m21:43:56.938685 [debug] [MainThread]: Response from registry: GET https://hub.getdbt.com/api/v1/dbt-labs/dbt_utils.json 200
+[0m21:43:56.959024 [info ] [MainThread]: Updating lock file in file path: /dbt/data_warehouse/package-lock.yml
+[0m21:43:56.966203 [debug] [MainThread]: Set downloads directory='/tmp/dbt-downloads-6fnr9hqg'
+[0m21:43:56.978261 [info ] [MainThread]: Installing dbt-labs/codegen
+[0m21:43:57.266793 [info ] [MainThread]: Installed from version 0.12.1
+[0m21:43:57.267282 [info ] [MainThread]: Up to date!
+[0m21:43:57.267710 [info ] [MainThread]: Installing elementary-data/elementary
+[0m21:43:57.648603 [info ] [MainThread]: Installed from version 0.13.0
+[0m21:43:57.649077 [info ] [MainThread]: Updated version available: 0.13.1
+[0m21:43:57.649509 [info ] [MainThread]: Installing dbt-labs/dbt_utils
+[0m21:43:57.953305 [info ] [MainThread]: Installed from version 1.1.1
+[0m21:43:57.953781 [info ] [MainThread]: Up to date!
+[0m21:43:57.954297 [info ] [MainThread]: 
+[0m21:43:57.954713 [info ] [MainThread]: Updates available for packages: ['elementary-data/elementary']                 
+Update your versions in packages.yml, then run dbt deps
+[0m21:43:57.955930 [debug] [MainThread]: Resource report: {"command_name": "deps", "command_success": true, "command_wall_clock_time": 1.5135689, "process_user_time": 2.172354, "process_kernel_time": 0.060335, "process_mem_max_rss": "96092", "process_in_blocks": "48", "process_out_blocks": "6872"}
+[0m21:43:57.956430 [debug] [MainThread]: Command `dbt deps` succeeded at 21:43:57.956316 after 1.51 seconds
+[0m21:43:57.956710 [debug] [MainThread]: Flushing usage events

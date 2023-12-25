@@ -2,20 +2,19 @@ name: piklertech
 profile: 'default'
 version: 0.0
 
-source-paths: ["models"]
+model-paths: ["models"]
 analysis-paths: ["analysis"]
 test-paths: ["tests"]
-data-paths: ["seeds"]
+seed-paths: ["seeds"]
 macro-paths: ["macros"]
 
 config-version: 2
 
 vars:
   apply_dev_limit: False
-  invoking_job_name: "{{ 'BQ test' if target.type == 'bigquery' else 'Ad hoc' }}"
   invoking_job_id: '{{ run_started_at.strftime("%Y%m%d%H%M%S") }}'
-  service_account: "{{ 'dbt-ff-sg-data-live@ff-sg-data-live.iam.gserviceaccount.com' }}"
-  project_name: "{{ 'ff-sg-data-live' }}"
+  service_account: "{{ 'pktech@pktech-409212.iam.gserviceaccount.com' }}"
+  project_name: "{{ 'pktech' }}"
   build_from_snapshots: True
 
 clean-targets:
