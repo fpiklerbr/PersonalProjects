@@ -18,3 +18,19 @@ services:
     stdin_open: true
     tty: true
     working_dir: /dbt/data_warehouse
+
+  etl_service:
+    # Define the configuration for your etl_service here
+    build:
+      context: ./_etl_scripts
+      dockerfile: Dockerfile
+    ports:
+      - "127.0.0.1:PORT_NUMBER:INTERNAL_PORT"
+    volumes:
+      - type: bind
+        source: ./_etl_scripts
+        target: /_etl_scripts
+    # Other configurations (environment, env_file, etc.) as needed
+    stdin_open: true
+    tty: true
+    working_dir: /_etl_scripts
