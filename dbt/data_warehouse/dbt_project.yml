@@ -19,7 +19,9 @@ models:
   data_warehouse:
     example:
       +materialized: view
+  elementary:
+    +schema: "elementary"
 
 seeds:
   data_warehouse:
-    +schema: seeds  # Specify the 'seeds' dataset for seed tables
+    +schema: seeds s
