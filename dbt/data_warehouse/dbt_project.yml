@@ -1,85 +1,37 @@
-name: data_warehouse
-profile: 'default'
-version: 0.0
 
+# Name your project! Project names should contain only lowercase characters
+# and underscores. A good package name should reflect your organization's
+# name or the intended use of these models
+name: 'data_warehouse'
+version: '1.0.0'
+config-version: 2
+
+# This setting configures which "profile" dbt uses for this project.
+profile: 'data_warehouse'
+
+# These configurations specify where dbt should look for different types of files.
+# The `model-paths` config, for example, states that models in this project can be
+# found in the "models/" directory. You probably won't need to change these!
 model-paths: ["models"]
-analysis-paths: ["analysis"]
+analysis-paths: ["analyses"]
 test-paths: ["tests"]
 seed-paths: ["seeds"]
 macro-paths: ["macros"]
+snapshot-paths: ["snapshots"]
 
-config-version: 2
-
-vars:
-  apply_dev_limit: False
-  invoking_job_id: '{{ run_started_at.strftime("%Y%m%d%H%M%S") }}'
-  service_account: "{{ 'pktech@pktech-409212.iam.gserviceaccount.com' }}"
-  project_name: "{{ 'pktech' }}"
-  build_from_snapshots: True
-
-clean-targets:
+clean-targets:         # directories to be removed by `dbt clean`
   - "target"
-  - "dbt_modules"
-  - "logs"
+  - "dbt_packages"
 
-on-run-start:
-  - "{{ log_invocation_start() }}"
-  - "{{ create_udfs() }}"
 
-on-run-end:
-  - "{{ grant_schema_permissions() }}"
-  - "{{ log_invocation_end() }}"
+# Configuring models
+# Full documentation: https://docs.getdbt.com/docs/configuring-models
 
+# In this example config, we tell dbt to build all models in the example/
+# directory as views. These settings can be overridden in the individual model
+# files using the `{{ config(...) }}` macro.
 models:
   data_warehouse:
-    pre-hook:
-      - "{{ log_model_run_event('start') }}"
-    post-hook:
-      - "{{ grant_model_permissions() }}"
-      - "{{ log_model_run_event('end') }}"
-    staging:
-      +schema: "{{'staging'}}"
-      +materialized: "{{'view'}}"
-      +unlogged: True
-    sources:
-      +schema: "{{'sources'}}"
-      +materialized: "{{ 'table' }}"
-      +unlogged: True
-    reporting:
-      +schema: "{{'reporting'}}"
-      +materialized: "{{ 'view' }}"
-      +unlogged: True
-    elementary:
-      +schema: "{{'elementary'}}"
-      +materialized: "{{ 'view' }}"
-      +unlogged: True
-    snapshots:
-      +schema: "{{'sources'}}"
-      +materialized: "{{ 'view' }}"
-      +unlogged: True
-    seeds:
-      +schema: "{{'seeds'}}"
-      +materialized: "{{ 'table' }}"
-      +unlogged: True
-seeds:
-  data_warehouse:
-    +quote_columns: False
-    +enabled: True
-    +schema: seeds
-    dummy_seed_for_types:
-      +column_types:
-        text_column: &text_type "{{ 'string' }}"
-        float_column: &float_type "{{ 'float64'}}"
-        int_column: &int_type "{{ 'int64' }}"
-        date_column: &date_type date
-        boolean_column: &boolean_type boolean
-        bigint_column: &bigint_type "{{ 'int64'}}"
-        decimal_column: &decimal_type "{{ 'numeric'}}"
-        timestamptz_column: &timestamptz_type "{{ 'timestamp'}}"
-    lookup_us_states_info:
-      +column_types:
-        state: *text_type
-        acronym: *text_type
-        VAT: *float_type
-        Latitude: *float_type
-        Longitude: *float_type
+    # Config indicated by + and applies to all files under models/example/
+    example:
+      +materialized: view
