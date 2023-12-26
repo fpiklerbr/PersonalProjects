@@ -22,6 +22,7 @@ COPY ./_etl_scripts /_etl_scripts
 
 # Set environment variables to ensure commands run inside the virtual environment
 ENV PATH="/app/venv/bin:$PATH"
+ENV DBT_PROFILES_DIR=/dbt/data_warehouse/config
 
 # entrypoint
 ENTRYPOINT [ "/usr/bin/tini", "--" ]

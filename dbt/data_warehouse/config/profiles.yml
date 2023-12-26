@@ -1,15 +1,6 @@
-# Environments using this will need at least the following environment variables...
-# - DBT_PROFILES_DIR=config
-# - DBT_DEFAULT_TARGET=/* whatever is appropriate to the target /*
-#
-# ...plus any other environment variables below for targets used by that environment, e.g. if you're developing in postgres
-# - PG_USER=/* your username */
-# - PG_PASS=/* your password /*
-# - PG_DEV_SCHEMA=/* dbt_dev_{your username} */
-
 config:
-    send_anonymous_usage_stats: False
-    use_colors: True
+  send_anonymous_usage_stats: False
+  use_colors: True
 
 default:
   target: "{{ env_var('DBT_DEFAULT_TARGET') }}"
@@ -17,8 +8,11 @@ default:
     bq_dev:
       type: bigquery
       method: service-account
-      project: pktech
+      project: "pktech-409212"  # Project ID
+      keyfile: "/config/bq_service_account.json"  # Path to your service account key file
       threads: 16
       timeout_seconds: 300
+      dataset: reporting  # Replace with your default dataset name
       priority: interactive
       retries: 1
+      location: US  # Optional: set this to your BigQuery location, if needed

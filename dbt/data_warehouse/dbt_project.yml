@@ -1,4 +1,4 @@
-name: piklertech
+name: data_warehouse
 profile: 'default'
 version: 0.0
 
@@ -31,7 +31,7 @@ on-run-end:
   - "{{ log_invocation_end() }}"
 
 models:
-  pktech-gold:
+  data_warehouse:
     pre-hook:
       - "{{ log_model_run_event('start') }}"
     post-hook:
@@ -43,23 +43,26 @@ models:
       +unlogged: True
     sources:
       +schema: "{{'sources'}}"
-      +materialized: "{{ 'view' if target.type == 'bigquery' else 'table' }}"
+      +materialized: "{{ 'table' }}"
       +unlogged: True
     reporting:
-      +schema: "{{'sources'}}"
-      +materialized: "{{ 'view' if target.type == 'bigquery' else 'table' }}"
+      +schema: "{{'reporting'}}"
+      +materialized: "{{ 'view' }}"
       +unlogged: True
     elementary:
-      +schema: "{{'sources'}}"
-      +materialized: "{{ 'view' if target.type == 'bigquery' else 'table' }}"
+      +schema: "{{'elementary'}}"
+      +materialized: "{{ 'view' }}"
       +unlogged: True
     snapshots:
       +schema: "{{'sources'}}"
-      +materialized: "{{ 'view' if target.type == 'bigquery' else 'table' }}"
+      +materialized: "{{ 'view' }}"
       +unlogged: True
-
+    seeds:
+      +schema: "{{'seeds'}}"
+      +materialized: "{{ 'table' }}"
+      +unlogged: True
 seeds:
-  pktech-gold:
+  data_warehouse:
     +quote_columns: False
     +enabled: True
     +schema: seeds
@@ -73,10 +76,10 @@ seeds:
         bigint_column: &bigint_type "{{ 'int64'}}"
         decimal_column: &decimal_type "{{ 'numeric'}}"
         timestamptz_column: &timestamptz_type "{{ 'timestamp'}}"
-#    calendars_dtc_promos:
-#      +column_types:
-#        promo_date: *date_type
-#        promo_type: *text_type
-#        discount_amount: *float_type
-#        discount_calculation: *text_type
-#        promo_note: *text_type
+    lookup_us_states_info:
+      +column_types:
+        state: *text_type
+        acronym: *text_type
+        VAT: *float_type
+        Latitude: *float_type
+        Longitude: *float_type
