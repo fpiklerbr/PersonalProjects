@@ -1,0 +1,6 @@
+packages:
+  - package: "dbt-labs/dbt_utils"
+    version: "0.7.0"  # Specify the version you want to use
+  - package: elementary-data/elementary
+    version: 0.13.0
+    ## Docs: https://docs.elementary-data.com
