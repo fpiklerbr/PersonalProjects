@@ -3,8 +3,6 @@ services:
   dbt:
     environment:
       - GOOGLE_APPLICATION_CREDENTIALS=/config/bq_service_account.json
-    env_file:
-      - ./dbt/data_warehouse/config/dbt.env
     build:
       context: ./
       dockerfile: Dockerfile
