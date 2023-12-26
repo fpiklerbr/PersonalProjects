@@ -19,3 +19,4 @@ requests==2.31.0
 Faker==21.0.0
 google-auth==2.25.2
 google-cloud-secret-manager==2.17.0
+pandas-gbq==0.20.0

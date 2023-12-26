@@ -1,23 +1,27 @@
 from google.cloud import secretmanager
 import os
 
-# Path to your service account key file
-service_account_path = "PersonalProjects/dbt/data_warehouse/config/bq_service_account.json"
+def get_secret_value(project_id, secret_id):
+    """
+    Retrieve a secret value from Google Secret Manager.
 
-# Setting the environment variable for authentication
-os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = service_account_path
+    Args:
+    project_id (str): Google Cloud project ID.
+    secret_id (str): ID of the secret to retrieve.
 
-# Create the Secret Manager client
-secret_client = secretmanager.SecretManagerServiceClient()
+    Returns:
+    str: The secret value.
+    """
+    try:
+        # Create the Secret Manager client
+        secret_client = secretmanager.SecretManagerServiceClient()
 
-# Your project ID and secret ID
-project_id = "933623807635"
-secret_id = "ftp_secrets"
+        # Format the resource name of the secret
+        resource_name = f"projects/{project_id}/secrets/{secret_id}/versions/latest"
 
-# Access the secret version
-resource_name = f"projects/{project_id}/secrets/{secret_id}/versions/latest"
-response = secret_client.access_secret_version(request={"name": resource_name})
-secret_value = response.payload.data.decode("UTF-8")
-
-# Print the secret value
-print("Secret Value:", secret_value)
+        # Access the secret version
+        response = secret_client.access_secret_version(request={"name": resource_name})
+        return response.payload.data.decode("UTF-8")
+    except Exception as e:
+        print(f"Error retrieving secret: {e}")
+        return None
