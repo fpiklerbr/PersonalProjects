@@ -1,11 +1,6 @@
 version: 2
 
-sources:
-  - name: sources
-    database: pktech-409212
-    schema: sources
-    tags: ["sources"]
-    tables:
+    models:
       - name: product_details
         columns:
           - name: id
