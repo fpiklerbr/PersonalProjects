@@ -1,0 +1,33 @@
+version: "3"
+services:
+  dbt:
+    environment:
+      - GOOGLE_APPLICATION_CREDENTIALS=/config/bq_service_account.json
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    ports:
+      - "127.0.0.1:8080:8080"
+      - "8001:8001"
+    volumes:
+      - ./dbt/data_warehouse:/dbt/data_warehouse
+      - ./config:/config
+    stdin_open: true
+    tty: true
+    working_dir: /dbt/data_warehouse
+
+  etl_service:
+    environment:
+      - GOOGLE_APPLICATION_CREDENTIALS=/config/bq_service_account.json
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    ports:
+      - "8100:8100"  # Suggested port for etl_service
+      - "8200:8200"  # Another option if needed
+    volumes:
+      - ./_etl_scripts:/_etl_scripts
+      - ./config:/config
+    stdin_open: true
+    tty: true
+    working_dir: /_etl_scripts
