@@ -24,4 +24,4 @@ models:
 
 seeds:
   data_warehouse:
-    +schema: seeds s
+    +schema: seeds
